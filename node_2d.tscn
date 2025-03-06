@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2j6cdqs6tmm7"]
 
-[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://Player.gd" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="2_0e48y"]
 
 [node name="Node2D" type="Node2D"]
