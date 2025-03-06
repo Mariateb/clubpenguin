@@ -35,8 +35,8 @@ func _physics_process(delta):
 	if direction.length() > 0:
 		direction = direction.normalized()
 	
-	# Rotate to face the mouse
-	look_at(get_global_mouse_position())
+	# looking_direction is the angle to the mouse
+	self.looking_direction = get_global_mouse_position().angle()
 	
 	self.global_position += direction * move_speed * delta
 
