@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ckmr7gousx5as" path="res://sprites/menu/mer/sprite_3.png" id="9_g7jxm"]
 [ext_resource type="Texture2D" uid="uid://b4w6el1h2y8qa" path="res://sprites/menu/mer/sprite_4.png" id="10_jspdm"]
 [ext_resource type="Script" uid="uid://2emlex6mao8e" path="res://buttons_menu.gd" id="11_h1wq0"]
-[ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="12_dwrpx"]
+[ext_resource type="Texture2D" uid="uid://0q43fq0gb5kl" path="res://sprites/penguant.png" id="12_dwrpx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxnod"]
 resource_local_to_scene = true
@@ -135,6 +135,7 @@ text = "Quitter
 [node name="Poignant" type="Sprite2D" parent="."]
 z_index = -25
 position = Vector2(398, 221)
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("12_dwrpx")
 script = ExtResource("2_l48gv")
 distance = 10.0
