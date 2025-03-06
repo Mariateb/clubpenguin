@@ -1,12 +1,9 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2j6cdqs6tmm7"]
 
-[gd_scene load_steps=5 format=3 uid="uid://d2j6cdqs6tmm7"]
-
-
-[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://Player.gd" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="2_0e48y"]
-[ext_resource type="Script" uid="uid://3ogm5u82w77a" path="res://monster.gd" id="3_epypp"]
-[ext_resource type="Script" uid="uid://dartfg2rcdmjw" path="res://generator.gd" id="4_0hol4"]
 [ext_resource type="Texture2D" uid="uid://bj3fwc2q75v0a" path="res://sprites/tilesets/testtiles.png" id="3_epypp"]
+[ext_resource type="Script" uid="uid://7esm3tqi4mki" path="res://monster.gd" id="3_q6r6c"]
 [ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="4_0hol4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0hol4"]
@@ -22,14 +19,11 @@ use_texture_padding = false
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_0hol4")
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("MobComponent")]
-script = ExtResource("4_0hol4")
-MobComponent = NodePath("Mob")
+[node name="Node2D" type="Node2D"]
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2(631, 299)
-
 z_index = 1
+position = Vector2(631, 299)
 script = ExtResource("1_wtcfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -37,17 +31,18 @@ position = Vector2(0, -1)
 scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_0e48y")
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+enabled = false
+
 [node name="Mob" type="Node2D" parent="."]
+z_index = 1
 position = Vector2(273, 212)
-script = ExtResource("3_epypp")
+script = ExtResource("3_q6r6c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mob"]
 position = Vector2(0, -1)
 scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_0e48y")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-enabled = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_q6r6c")
