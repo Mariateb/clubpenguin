@@ -1,0 +1,141 @@
+[gd_scene load_steps=15 format=3 uid="uid://5kabx2l2aooj"]
+
+[ext_resource type="Texture2D" uid="uid://dawiugxt8ldre" path="res://sprites/menu/montagne_1.png" id="1_4hy44"]
+[ext_resource type="Script" uid="uid://tu7d0n7pnd0t" path="res://map_item.gd" id="2_l48gv"]
+[ext_resource type="Texture2D" uid="uid://c6hrce5aawm0p" path="res://sprites/menu/montagne_2.png" id="2_ytr4m"]
+[ext_resource type="Texture2D" uid="uid://ckm7v68vga0dx" path="res://sprites/menu/herbe.png" id="3_l48gv"]
+[ext_resource type="Texture2D" uid="uid://bb17n5ski2878" path="res://sprites/menu/sable.png" id="4_ecwwl"]
+[ext_resource type="Texture2D" uid="uid://vwt0pd6c724q" path="res://sprites/menu/mer/sprite_0.png" id="6_iqepy"]
+[ext_resource type="Texture2D" uid="uid://gdkhteui7bop" path="res://sprites/menu/mer/sprite_1.png" id="7_h1wq0"]
+[ext_resource type="Texture2D" uid="uid://bf0tdwx88hipa" path="res://sprites/menu/mer/sprite_2.png" id="8_dwrpx"]
+[ext_resource type="Texture2D" uid="uid://ckmr7gousx5as" path="res://sprites/menu/mer/sprite_3.png" id="9_g7jxm"]
+[ext_resource type="Texture2D" uid="uid://b4w6el1h2y8qa" path="res://sprites/menu/mer/sprite_4.png" id="10_jspdm"]
+[ext_resource type="Script" uid="uid://2emlex6mao8e" path="res://buttons_menu.gd" id="11_h1wq0"]
+[ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="12_dwrpx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxnod"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_iqepy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h1wq0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dwrpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_g7jxm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jspdm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iqepy"]
+font_size = 32
+
+[node name="Menu" type="Node2D"]
+
+[node name="Montagne1" type="Sprite2D" parent="."]
+z_index = -40
+texture_filter = 1
+position = Vector2(34, -53)
+scale = Vector2(12, 12)
+texture = ExtResource("1_4hy44")
+script = ExtResource("2_l48gv")
+distance = 23.0
+
+[node name="Montagne2" type="Sprite2D" parent="."]
+z_index = -50
+texture_filter = 1
+position = Vector2(154, -135)
+scale = Vector2(12, 12)
+texture = ExtResource("2_ytr4m")
+script = ExtResource("2_l48gv")
+distance = 25.0
+
+[node name="Herbe" type="Sprite2D" parent="."]
+z_index = -30
+texture_filter = 1
+position = Vector2(253, 73)
+scale = Vector2(12, 12)
+texture = ExtResource("3_l48gv")
+script = ExtResource("2_l48gv")
+distance = 15.0
+
+[node name="Sable" type="Sprite2D" parent="."]
+z_index = -20
+texture_filter = 1
+position = Vector2(128, 206)
+scale = Vector2(12, 12)
+texture = ExtResource("4_ecwwl")
+script = ExtResource("2_l48gv")
+distance = 5.0
+
+[node name="Mer" type="AnimatedSprite2D" parent="."]
+z_index = -10
+texture_filter = 1
+position = Vector2(180, 402)
+scale = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_oxnod")
+autoplay = "default"
+script = ExtResource("2_l48gv")
+distance = 4.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1154.0
+offset_bottom = 648.0
+
+[node name="nom du jeu" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 248.0
+grow_horizontal = 2
+text = "Penguin surivor"
+label_settings = SubResource("LabelSettings_iqepy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(160, 300)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -66.0
+offset_right = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("11_h1wq0")
+
+[node name="Button_jouer" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Jouer"
+
+[node name="Button_quitter" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Quitter
+"
+
+[node name="Poignant" type="Sprite2D" parent="."]
+z_index = -25
+position = Vector2(398, 221)
+texture = ExtResource("12_dwrpx")
+script = ExtResource("2_l48gv")
+distance = 10.0
+base_position = Vector2(200, 360)
