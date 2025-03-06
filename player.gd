@@ -1,6 +1,10 @@
 extends Node2D
 
 @export var move_speed: float = 200.0
+@onready var camera = $Camera2D
+
+func _ready():
+	camera.position = position
 
 func _process(delta):
 	var direction = Vector2.ZERO

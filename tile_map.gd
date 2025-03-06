@@ -10,15 +10,23 @@ var noise = FastNoiseLite.new()
 func _ready():
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.frequency = 0.01
+	noise.seed = randi()
+	
 	generate_map()
 
 func get_simplex_noise(pos: Vector2):
 	return noise.get_noise_2d(pos.x, pos.y)
 
 func generate_map():
-	for x in range(MAP_SIZE):
-		for y in range(MAP_SIZE):
-			var noise_value = get_simplex_noise(Vector2(x, y))
+	var map_center = Vector2(MAP_SIZE / 2, MAP_SIZE / 2)
+	
+	for x in range(-(MAP_SIZE / 2), (MAP_SIZE / 2)):
+		for y in range(-(MAP_SIZE / 2), (MAP_SIZE / 2)):
+			var pos = Vector2(x, y)
+			var noise_value = get_simplex_noise(pos)
+			
+			noise_value -= pos.distance_to(map_center) / 750.0
+			
 			var tile = TILE_WATER
 			if noise_value > -0.4:
 				tile = TILE_SAND

@@ -25,11 +25,11 @@ z_index = 1
 script = ExtResource("1_wtcfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(191, -57)
 scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_0e48y")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+enabled = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_q6r6c")
