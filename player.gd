@@ -6,16 +6,17 @@ signal show_level_up()
 var direction = Vector2.LEFT
 
 
-
+@export var level: int = 1
 @export var required_experience_until_next_level: float = 25.0
 @export var experience_gain: float = 0.5
 @export var experience_points: float = 0:
 	get:
 		return experience_points
 	set(value):
-		experience_points += value * experience_gain
+		experience_points = value
 		if experience_points >= required_experience_until_next_level:
 			show_level_up.emit()
+			level_up()
 
 func _ready() -> void:
 	max_health_points = 100.0
@@ -33,15 +34,15 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_up"):
 		position = position + (Vector2.UP * move_speed * delta)
 		looking_direction = Vector2.UP
+		experience_points += 1
 	if Input.is_action_pressed("move_down"):
 		position = position + (Vector2.DOWN * move_speed * delta)
 		looking_direction = Vector2.DOWN
-		health_points += -1
-		print(health_points)
 
 func level_up():
-	# max_health_points *= 1.05
-	# health_points = max_health_points
+	max_health_points *= 1.05
+	health_points = max_health_points
 	experience_points = 0
+	level += 1
 	required_experience_until_next_level *= 1.5
 	print("do you even goon bro")
