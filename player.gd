@@ -49,7 +49,6 @@ func level_up():
 	level += 1
 	required_experience_until_next_level *= 1.5
 
-
 func equip_weapon(weapon: Weapon):
 	weapons.push_back(weapon)
 	add_child(weapon)
