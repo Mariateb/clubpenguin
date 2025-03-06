@@ -5,6 +5,8 @@ extends Living
 signal show_level_up()
 var direction = Vector2.LEFT
 
+
+
 @export var required_experience_until_next_level: float = 25.0
 @export var experience_gain: float = 0.5
 @export var experience_points: float = 0:
@@ -16,8 +18,8 @@ var direction = Vector2.LEFT
 			show_level_up.emit()
 
 func _ready() -> void:
-	max_health_points = 200.0
-	health_points = 50.0
+	max_health_points = 100.0
+	health_points = 100.0
 	move_speed = 200.0
 	print("overly gooning")
 
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_down"):
 		position = position + (Vector2.DOWN * move_speed * delta)
 		looking_direction = Vector2.DOWN
-		print(max_health_points)
+		health_points += -1
 		print(health_points)
 
 func level_up():
@@ -42,3 +44,4 @@ func level_up():
 	# health_points = max_health_points
 	experience_points = 0
 	required_experience_until_next_level *= 1.5
+	print("do you even goon bro")
