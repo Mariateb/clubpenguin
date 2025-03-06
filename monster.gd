@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Monster
+
 @export var speedMove : int = 300
 
 @onready var target: Node2D = $"../Player"
