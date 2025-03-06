@@ -1,13 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2j6cdqs6tmm7"]
+
+[gd_scene load_steps=20 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://df7yejcxfy5ur" path="res://node_2d.gd" id="1_d21ai"]
 [ext_resource type="Script" uid="uid://5isoidc6tv4o" path="res://player.gd" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://bj3fwc2q75v0a" path="res://sprites/tilesets/testtiles.png" id="3_epypp"]
-[ext_resource type="Script" path="res://monster.gd" id="3_q6r6c"]
-[ext_resource type="Script" path="res://tile_map.gd" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://7esm3tqi4mki" path="res://monster.gd" id="3_q6r6c"]
+[ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://hcvab7a7mm4w" path="res://hp_label.gd" id="6_hqns4"]
+[ext_resource type="Texture2D" uid="uid://dylmrmt5647sr" path="res://sprites/bars/EXPBarUnder.png" id="6_nr8wp"]
+[ext_resource type="Texture2D" uid="uid://h0dmq34f5ulk" path="res://sprites/bars/healthBarOver.png" id="7_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://byivg1qpfis0y" path="res://sprites/bars/EXPBarOver.png" id="7_d2bti"]
+[ext_resource type="Texture2D" uid="uid://d1cfj70fq4aqe" path="res://sprites/bars/EXPBarProgress.png" id="7_nr8wp"]
+[ext_resource type="Texture2D" uid="uid://c5806bvaa3eea" path="res://sprites/bars/healthBarUnder.png" id="7_rj586"]
+[ext_resource type="Texture2D" uid="uid://drrwdgyvg44nn" path="res://sprites/bars/healthBarProgress.png" id="8_4d7sh"]
+[ext_resource type="Script" uid="uid://boyuse3rp463" path="res://exp_texture.gd" id="8_x0ka3"]
+[ext_resource type="Script" uid="uid://ck18vwca65ae8" path="res://hp_bar_texture.gd" id="9_4d7sh"]
+[ext_resource type="Script" uid="uid://bwwqxhg2hknxm" path="res://timer_label.gd" id="10_ir8iy"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0hol4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
 resource_name = "Test"
 texture = ExtResource("3_epypp")
 texture_region_size = Vector2i(32, 32)
@@ -18,10 +29,19 @@ use_texture_padding = false
 
 [sub_resource type="TileSet" id="TileSet_q6r6c"]
 tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_0hol4")
+sources/1 = SubResource("TileSetAtlasSource_q6r6c")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_d21ai")
+[sub_resource type="SystemFont" id="SystemFont_hqns4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x0ka3"]
+font = SubResource("SystemFont_hqns4")
+font_size = 28
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Jeu" type="Node2D"]
 
 [node name="Player" type="Node2D" parent="."]
 z_index = 1
@@ -36,6 +56,7 @@ texture = ExtResource("2_0e48y")
 [node name="Camera2D" type="Camera2D" parent="Player/Sprite2D"]
 position = Vector2(0, 1.96075)
 scale = Vector2(1.96078, 1.96078)
+enabled = false
 
 [node name="Mob" type="Node2D" parent="."]
 z_index = 1
@@ -53,7 +74,6 @@ format = 2
 script = ExtResource("4_0hol4")
 
 [node name="CameraOut" type="Camera2D" parent="."]
-enabled = false
 zoom = Vector2(0.1, 0.1)
 
 [node name="Panel" type="Control" parent="."]
@@ -96,3 +116,86 @@ text = "Reprendre"
 layout_mode = 2
 text = "Quitter
 "
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+z_index = 50
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EXPBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+z_index = 50
+layout_direction = 2
+layout_mode = 1
+offset_left = 15.0
+offset_top = 80.0
+offset_right = 245.0
+offset_bottom = 107.0
+scale = Vector2(0.1, 0.1)
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="EXPTexture" type="TextureProgressBar" parent="CanvasLayer/HUD/EXPBar" node_paths=PackedStringArray("player")]
+z_index = 50
+layout_mode = 1
+offset_right = 314.0
+offset_bottom = 68.0
+scale = Vector2(10, 10)
+texture_under = ExtResource("6_nr8wp")
+texture_over = ExtResource("7_d2bti")
+texture_progress = ExtResource("7_nr8wp")
+script = ExtResource("8_x0ka3")
+player = NodePath("../../../../Player")
+
+[node name="HPLabel" type="Label" parent="CanvasLayer/HUD" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 56.0
+offset_right = 336.0
+offset_bottom = 67.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_x0ka3")
+horizontal_alignment = 1
+script = ExtResource("6_hqns4")
+player = NodePath("../../../Player")
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 536.0
+offset_right = 576.0
+offset_bottom = 67.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_x0ka3")
+horizontal_alignment = 1
+script = ExtResource("10_ir8iy")
+
+[node name="HPBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+z_index = 50
+layout_mode = 1
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 240.0
+offset_bottom = 67.0
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/HPBar" node_paths=PackedStringArray("player")]
+z_index = 50
+layout_mode = 0
+offset_top = -35.0
+offset_right = 314.0
+offset_bottom = 42.0
+texture_under = ExtResource("7_rj586")
+texture_over = ExtResource("7_4d7sh")
+texture_progress = ExtResource("8_4d7sh")
+script = ExtResource("9_4d7sh")
+player = NodePath("../../../../Player")

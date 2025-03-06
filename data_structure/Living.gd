@@ -2,7 +2,6 @@ class_name Living
 
 extends Node2D
 
-signal over_healed(ammount: float)
 signal dies
 
 @export var max_health_points: float
@@ -13,7 +12,7 @@ signal dies
 	get:
 		return health_points
 	set(value):
-		health_points = max(health_points + value, max_health_points)
+		health_points = value
 		if health_points < 0.0:
 			health_points = 0.0
 			dies.emit()
