@@ -3,7 +3,9 @@ class_name Player
 extends Living
 
 signal show_level_up()
-var direction = Vector2.LEFT
+@export var direction = Vector2.LEFT
+
+var weapons: Array = []
 
 
 @export var level: int = 1
@@ -22,7 +24,8 @@ func _ready() -> void:
 	max_health_points = 100.0
 	health_points = 100.0
 	move_speed = 200.0
-	print("overly gooning")
+	equip_weapon(Slash.new(self))
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_left"):
@@ -45,4 +48,8 @@ func level_up():
 	experience_points = 0
 	level += 1
 	required_experience_until_next_level *= 1.5
-	print("do you even goon bro")
+
+
+func equip_weapon(weapon: Weapon):
+	weapons.push_back(weapon)
+	add_child(weapon)

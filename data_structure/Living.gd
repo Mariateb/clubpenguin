@@ -2,7 +2,6 @@ class_name Living
 
 extends Node2D
 
-signal over_healed(ammount: float)
 signal dies
 
 @export var max_health_points: float
