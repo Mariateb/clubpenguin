@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5kabx2l2aooj"]
+[gd_scene load_steps=15 format=3 uid="uid://5kabx2l2aooj"]
 
 [ext_resource type="Texture2D" uid="uid://dawiugxt8ldre" path="res://sprites/menu/montagne_1.png" id="1_4hy44"]
 [ext_resource type="Script" uid="uid://tu7d0n7pnd0t" path="res://map_item.gd" id="2_l48gv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ckmr7gousx5as" path="res://sprites/menu/mer/sprite_3.png" id="9_g7jxm"]
 [ext_resource type="Texture2D" uid="uid://b4w6el1h2y8qa" path="res://sprites/menu/mer/sprite_4.png" id="10_jspdm"]
 [ext_resource type="Script" uid="uid://2emlex6mao8e" path="res://buttons_menu.gd" id="11_h1wq0"]
+[ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="12_dwrpx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxnod"]
 resource_local_to_scene = true
@@ -129,3 +130,7 @@ text = "Jouer"
 layout_mode = 2
 text = "Quitter
 "
+
+[node name="Poignant" type="Sprite2D" parent="."]
+position = Vector2(404, 363)
+texture = ExtResource("12_dwrpx")
