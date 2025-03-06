@@ -1,6 +1,11 @@
 class_name Player
 
 extends Living
+@export var move_speed: float = 200.0
+@onready var camera = $Camera2D
+
+func _ready():
+	camera.position = position
 
 signal show_level_up()
 
