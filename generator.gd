@@ -5,13 +5,12 @@ extends Node2D
 
 var monsterAlive = 0
 
-func _process(delta):
-	var monsterAlive = platform.find_children("__monster") 
-	while len(monsterAlive) < 10:
-		var test = Node2D.new()
-		test.name = "__monsrer"
-		
-		platform.add_child(test)
+func _ready():
+	var monsterAlive = len(platform.find_children("__monster"))
+	var test = Node2D.new()
+	test.name = "__monster" + str(monsterAlive)
+	platform.add_child(test)
+	monsterAlive+=1
 	
 func handleSpawner():
 	pass
