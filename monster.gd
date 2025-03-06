@@ -4,7 +4,7 @@ class_name Monster
 
 @export var speedMove : int = 300
 
-@onready var target: Node2D = $"../Player"
+@export var target: Player
 
 
 func _process(delta):
