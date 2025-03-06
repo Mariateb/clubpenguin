@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://monster.gd" id="3_q6r6c"]
 [ext_resource type="Script" path="res://tile_map.gd" id="4_0hol4"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0hol4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
 resource_name = "Test"
 texture = ExtResource("3_epypp")
 texture_region_size = Vector2i(32, 32)
@@ -17,7 +17,7 @@ use_texture_padding = false
 
 [sub_resource type="TileSet" id="TileSet_q6r6c"]
 tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_0hol4")
+sources/1 = SubResource("TileSetAtlasSource_q6r6c")
 
 [node name="Node2D" type="Node2D"]
 
