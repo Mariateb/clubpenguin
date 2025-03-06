@@ -15,10 +15,11 @@ var direction = Vector2.LEFT
 		if experience_points >= required_experience_until_next_level:
 			show_level_up.emit()
 
-func _init() -> void:
-	max_health_points = 100.0
-	health_points = 100.0
+func _ready() -> void:
+	max_health_points = 200.0
+	health_points = 50.0
 	move_speed = 200.0
+	print("overly gooning")
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_left"):
@@ -33,9 +34,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_down"):
 		position = position + (Vector2.DOWN * move_speed * delta)
 		looking_direction = Vector2.DOWN
+		print(max_health_points)
+		print(health_points)
 
 func level_up():
-	max_health_points *= 1.05
-	health_points = max_health_points
+	# max_health_points *= 1.05
+	# health_points = max_health_points
 	experience_points = 0
 	required_experience_until_next_level *= 1.5

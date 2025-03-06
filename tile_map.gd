@@ -1,6 +1,6 @@
 extends TileMap
 
-const MAP_SIZE = 215
+const MAP_SIZE = 512
 const TILE_SIZE = 32
 const TILE_DIRT = Vector2i(0, 0)
 const TILE_WATER = Vector2i(1, 0)

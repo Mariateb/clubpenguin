@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2j6cdqs6tmm7"]
+[gd_scene load_steps=12 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://bj3fwc2q75v0a" path="res://sprites/tilesets/testtiles.png" id="3_epypp"]
-[ext_resource type="Script" path="res://monster.gd" id="3_q6r6c"]
-[ext_resource type="Script" path="res://tile_map.gd" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://7esm3tqi4mki" path="res://monster.gd" id="3_q6r6c"]
+[ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://h0dmq34f5ulk" path="res://sprites/bars/healthBarOver.png" id="7_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://c5806bvaa3eea" path="res://sprites/bars/healthBarUnder.png" id="7_rj586"]
+[ext_resource type="Texture2D" uid="uid://drrwdgyvg44nn" path="res://sprites/bars/healthBarProgress.png" id="8_4d7sh"]
+[ext_resource type="Script" uid="uid://ck18vwca65ae8" path="res://hp_bar_texture.gd" id="9_4d7sh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0hol4"]
 resource_name = "Test"
@@ -19,7 +23,7 @@ use_texture_padding = false
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_0hol4")
 
-[node name="Node2D" type="Node2D"]
+[node name="Jeu" type="Node2D"]
 
 [node name="Player" type="Node2D" parent="."]
 z_index = 1
@@ -34,6 +38,7 @@ texture = ExtResource("2_0e48y")
 [node name="Camera2D" type="Camera2D" parent="Player/Sprite2D"]
 position = Vector2(0, 1.96075)
 scale = Vector2(1.96078, 1.96078)
+enabled = false
 
 [node name="Mob" type="Node2D" parent="."]
 z_index = 1
@@ -51,5 +56,42 @@ format = 2
 script = ExtResource("4_0hol4")
 
 [node name="CameraOut" type="Camera2D" parent="."]
-enabled = false
 zoom = Vector2(0.1, 0.1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+z_index = 50
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "14h pour gooner"
+
+[node name="HPBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+z_index = 50
+layout_mode = 1
+offset_left = 180.0
+offset_top = 40.0
+offset_right = 410.0
+offset_bottom = 67.0
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/HPBar" node_paths=PackedStringArray("player")]
+z_index = 50
+layout_mode = 0
+offset_top = -35.0
+offset_right = 314.0
+offset_bottom = 42.0
+texture_under = ExtResource("7_rj586")
+texture_over = ExtResource("7_4d7sh")
+texture_progress = ExtResource("8_4d7sh")
+script = ExtResource("9_4d7sh")
+player = NodePath("../../../../Player")
