@@ -7,7 +7,7 @@ signal dies
 
 @export var max_health_points: float
 @export var move_speed: float
-@export var looking_direction: float
+@export var looking_direction: Vector2 = Vector2.RIGHT
 
 @export var health_points: float:
 	get:
