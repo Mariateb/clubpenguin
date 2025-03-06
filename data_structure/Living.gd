@@ -13,11 +13,7 @@ signal dies
 	get:
 		return health_points
 	set(value):
-		health_points += value
+		health_points = max(health_points + value, max_health_points)
 		if health_points < 0.0:
 			health_points = 0.0
 			dies.emit()
-		elif health_points > max_health_points:
-			var over_health = max_health_points - health_points
-			health_points = max_health_points
-			over_healed.emit(over_health)
