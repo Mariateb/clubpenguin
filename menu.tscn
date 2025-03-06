@@ -43,7 +43,7 @@ font_size = 32
 [node name="Menu" type="Node2D"]
 
 [node name="Montagne1" type="Sprite2D" parent="."]
-z_index = -4
+z_index = -40
 texture_filter = 1
 position = Vector2(34, -53)
 scale = Vector2(12, 12)
@@ -52,7 +52,7 @@ script = ExtResource("2_l48gv")
 distance = 23.0
 
 [node name="Montagne2" type="Sprite2D" parent="."]
-z_index = -5
+z_index = -50
 texture_filter = 1
 position = Vector2(154, -135)
 scale = Vector2(12, 12)
@@ -61,7 +61,7 @@ script = ExtResource("2_l48gv")
 distance = 25.0
 
 [node name="Herbe" type="Sprite2D" parent="."]
-z_index = -3
+z_index = -30
 texture_filter = 1
 position = Vector2(253, 73)
 scale = Vector2(12, 12)
@@ -70,7 +70,7 @@ script = ExtResource("2_l48gv")
 distance = 15.0
 
 [node name="Sable" type="Sprite2D" parent="."]
-z_index = -2
+z_index = -20
 texture_filter = 1
 position = Vector2(128, 206)
 scale = Vector2(12, 12)
@@ -79,11 +79,12 @@ script = ExtResource("2_l48gv")
 distance = 5.0
 
 [node name="Mer" type="AnimatedSprite2D" parent="."]
-z_index = -1
+z_index = -10
 texture_filter = 1
 position = Vector2(180, 402)
 scale = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_oxnod")
+autoplay = "default"
 script = ExtResource("2_l48gv")
 distance = 4.0
 
@@ -132,5 +133,9 @@ text = "Quitter
 "
 
 [node name="Poignant" type="Sprite2D" parent="."]
-position = Vector2(404, 363)
+z_index = -25
+position = Vector2(398, 221)
 texture = ExtResource("12_dwrpx")
+script = ExtResource("2_l48gv")
+distance = 10.0
+base_position = Vector2(200, 360)
