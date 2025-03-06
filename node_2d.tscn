@@ -35,3 +35,6 @@ texture = ExtResource("2_0e48y")
 tile_set = SubResource("TileSet_q6r6c")
 format = 2
 script = ExtResource("4_0hol4")
+
+[node name="CameraOut" type="Camera2D" parent="."]
+zoom = Vector2(0.1, 0.1)
