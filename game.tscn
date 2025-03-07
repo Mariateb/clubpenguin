@@ -29,7 +29,6 @@ metadata/_custom_type_script = "uid://ccl0mrpavwhxh"
 
 [node name="Player" type="Node2D" parent="Node"]
 z_index = 1
-position = Vector2(631, 299)
 script = ExtResource("2_ryrav")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node/Player"]
