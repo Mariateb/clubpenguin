@@ -17,6 +17,8 @@ enum MonsterState{
 @export var speedMove : int = 300
 @onready var texture = load("res://sprites/poignant.png")
 @onready var state: MonsterState = MonsterState.ATTACK
+var rigidbody = RigidBody2D.new()
+
 
 func _ready() -> void:
 	var collision = CollisionShape2D.new()
@@ -24,7 +26,8 @@ func _ready() -> void:
 	shape.radius = 128
 	collision.shape = shape
 	collision.name = "__Collision"
-	add_child(collision)
+	rigidbody.add_child(collision)
+	add_child(rigidbody)
 	
 	self.z_index = 1
 	var sprit2D = Sprite2D.new()
@@ -34,6 +37,13 @@ func _ready() -> void:
 var angle = 0
 var speed = 2
 
-func _process(delta):
+func _physics_process(delta: float) -> void:
+	pass
+
+"""
+ Instead to only be 
+"""
+func _process(delta) -> void:
+	
 	
 	pass
