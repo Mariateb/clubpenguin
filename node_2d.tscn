@@ -1,30 +1,23 @@
 [gd_scene load_steps=21 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://df7yejcxfy5ur" path="res://node_2d.gd" id="1_d21ai"]
-[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="1_wtcfe"]
-[ext_resource type="Texture2D" uid="uid://cg2gm6b77xjl5" path="res://sprites/poignant.png" id="2_0e48y"]
-[ext_resource type="Script" uid="uid://7esm3tqi4mki" path="res://script/monster.gd" id="3_q6r6c"]
+[ext_resource type="Script" uid="uid://c0lkhyhui7t0e" path="res://player.gd" id="1_wtcfe"]
+[ext_resource type="SpriteFrames" uid="uid://1dnp2p6qoxkk" path="res://sprites/character/player.tres" id="3_k73cj"]
 [ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://ccl0mrpavwhxh" path="res://script/generator.gd" id="4_k73cj"]
 [ext_resource type="Texture2D" uid="uid://5e2bnxc0wmo1" path="res://sprites/tilesets/thetiles.png" id="5_ta5nu"]
 [ext_resource type="Script" uid="uid://hcvab7a7mm4w" path="res://hp_label.gd" id="6_hqns4"]
-
-[ext_resource type="SpriteFrames" uid="uid://1dnp2p6qoxkk" path="res://sprites/character/player.tres" id="3_k73cj"]
-[ext_resource type="Script" uid="uid://ccl0mrpavwhxh" path="res://script/generator.gd" id="4_k73cj"]
-
-
 [ext_resource type="Texture2D" uid="uid://dylmrmt5647sr" path="res://sprites/bars/EXPBarUnder.png" id="6_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://h0dmq34f5ulk" path="res://sprites/bars/healthBarOver.png" id="7_4d7sh"]
 [ext_resource type="Texture2D" uid="uid://byivg1qpfis0y" path="res://sprites/bars/EXPBarOver.png" id="7_d2bti"]
 [ext_resource type="Texture2D" uid="uid://d1cfj70fq4aqe" path="res://sprites/bars/EXPBarProgress.png" id="7_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://c5806bvaa3eea" path="res://sprites/bars/healthBarUnder.png" id="7_rj586"]
 [ext_resource type="Texture2D" uid="uid://drrwdgyvg44nn" path="res://sprites/bars/healthBarProgress.png" id="8_4d7sh"]
-
-[ext_resource type="Script" uid="uid://dst4vdc238ugg" path="res://exp_texture.gd" id="8_x0ka3"]
-[ext_resource type="Script" uid="uid://bjsmd2uw0vjvx" path="res://hp_bar_texture.gd" id="9_4d7sh"]
-[ext_resource type="Script" uid="uid://460ohg6uyxj8" path="res://timer_label.gd" id="10_ir8iy"]
+[ext_resource type="Script" uid="uid://boyuse3rp463" path="res://exp_texture.gd" id="8_x0ka3"]
+[ext_resource type="Script" uid="uid://ck18vwca65ae8" path="res://hp_bar_texture.gd" id="9_4d7sh"]
+[ext_resource type="Script" uid="uid://bwwqxhg2hknxm" path="res://timer_label.gd" id="10_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://dj2eakwhgbcqm" path="res://penguinsprites/enemies/tropicalfish/tropfish1.png" id="17_flf07"]
-[ext_resource type="Script" uid="uid://y6bmrhjg0tvh" path="res://death_count_label.gd" id="18_k73cj"]
-
+[ext_resource type="Script" path="res://death_count_label.gd" id="18_k73cj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
 resource_name = "Test"
@@ -602,25 +595,13 @@ script = ExtResource("1_wtcfe")
 sprite_frames = ExtResource("3_k73cj")
 animation = &"idle"
 
-
 [node name="Player_Sprite2D#Camera2D" type="Camera2D" parent="Jeu/Player/Sprite2D"]
 position = Vector2(0, 5.8054)
 scale = Vector2(3.84467, 3.84467)
 
-enabled = false
-
-[node name="Mob" type="Node2D" parent="."]
-z_index = 1
-script = ExtResource("3_q6r6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Mob"]
-scale = Vector2(0.51, 0.51)
-texture = ExtResource("2_0e48y")
-
 [node name="Generator" type="Node2D" parent="Jeu"]
 script = ExtResource("4_k73cj")
 metadata/_custom_type_script = "uid://ccl0mrpavwhxh"
-
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_q6r6c")
