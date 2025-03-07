@@ -10,17 +10,18 @@ var level: int = 0
 var base_damage: Array = [10, 20, 30]
 var cooldown: Array = [1.0, 1.0, 1.0]
 
-func _init(p, wn) -> void:
+func _init(p: Player, wn) -> void:
 	self.player = p
 	self.weapon_name = wn
-	z_index = 10
+	global_position = p.global_position
+	z_index = 5
 	init_collision()
 	init_animation()
 
 func init_collision():
 	area = Area2D.new()
 	add_child(area)
-	
+
 	var shape = RectangleShape2D.new()
 	var image = Image.load_from_file("res://sprites/weapons/" + weapon_name + "/0.png")
 	shape.size = Vector2(image.get_width(), image.get_height())
@@ -41,11 +42,11 @@ func init_animation() -> void:
 			filename = dir.get_next()
 		dir.list_dir_end()
 		images.sort()
-		
+
 		sprite_frames = SpriteFrames.new()
 		sprite_frames.add_animation(ANIMATION)
 		sprite_frames.set_animation_loop(ANIMATION, false)
-		
+
 		for image in images:
 			sprite_frames.add_frame(ANIMATION, load(dir_path + image))
 
@@ -67,24 +68,20 @@ func loop() -> void:
 		await get_tree().create_timer(cooldown[level]).timeout
 
 func update_position() -> void:
-	var x = 80
+	var x = 128
 	match player.looking_direction:
 		Vector2.UP:
 			self.global_position = player.global_position + Vector2(0, -x)
 			self.global_rotation_degrees = -90
-			self.global_scale.x = 1  # Reset scale
 		Vector2.DOWN:
 			self.global_position = player.global_position + Vector2(0, x)
 			self.global_rotation_degrees = 90
-			self.global_scale.x = 1  # Reset scale
 		Vector2.LEFT:
 			self.global_position = player.global_position + Vector2(-x, 0)
 			self.global_rotation_degrees = 180
-			self.global_scale.x = -1
 		Vector2.RIGHT:
 			self.global_position = player.global_position + Vector2(x, 0)
 			self.global_rotation_degrees = 0
-			self.global_scale.x = 1
 
 func attack():
 	var bodies = area.get_overlapping_bodies()
