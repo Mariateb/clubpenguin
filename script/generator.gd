@@ -5,12 +5,6 @@ extends Node2D
 const maxBoidsAlive: int = 140
 
 func _ready():
-	for i in range(maxBoidsAlive):
-		var boids = Boids.new($"../Player")
-		
-		boids.name = "__boids" + str(i)
-		boids.position.x += randi() % 1000
-		boids.position.y += randi() % 1000
-		
-		add_child(boids)
+	var boids = Boids.new($"../Player", maxBoidsAlive)
+	add_child(boids)
 	pass

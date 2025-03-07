@@ -6,16 +6,19 @@ class_name Monster
 var velocity = Vector2()
 var acceleration = Vector2()
 var max_speed = 150.0
-var max_force = 25
-var radius = 100.0  # Rayon d'influence pour les comportements de flocking
+var max_force = 5.0
+var inner_radius = 30.0
+var radius = 50.0  # Rayon d'influence pour les comportements de flocking
+
 
 var weapons: Array = []
 
 # Poids pour l'alignement, la cohésion, la séparation et le suivi de la cible
-var alignment_weight = 1
-var cohesion_weight = 2
-var separation_weight = 10.5
-var follow_weight = 1 #Poids pour le suivi d'une cible (si applicable)
+var alignment_weight = 0.3
+var cohesion_weight = 10
+var separation_weight = 100
+var follow_weight = 2  # Poids pour le suivi d'une cible (si applicable)
+
 
 var speed = 100.0
 var target : Node2D  # Cible à suivre (si défini)
@@ -74,14 +77,14 @@ func _process(delta):
 	var follow_target = follow()  # Attirer vers la cible
 
 	# Appliquer les forces calculées
-	acceleration = alignment * alignment_weight + cohesion * cohesion_weight + separation * separation_weight + follow_target * follow_weight
+	acceleration = cohesion * cohesion_weight + follow_target * follow_weight + separation * separation_weight
 
 	# Mettre à jour la vélocité et la limiter à la vitesse maximale
-	velocity += acceleration
-	velocity = velocity.normalized() * min(velocity.length(), max_speed)
+	var vel = lerp((velocity + acceleration), velocity.normalized() * alignment, alignment_weight) 
+	velocity = vel.normalized() * min(vel.length(), max_speed)
 
 	# Déplacer le boid
-	position += velocity * delta
+	global_position += velocity * delta
 
 	# Appliquer une rotation fluide vers la direction du mouvement
 	if velocity.length() > 0:
@@ -89,43 +92,29 @@ func _process(delta):
 
 # Séparation : éviter la proximité des autres boids
 func separate() -> Vector2:
-	var steer = Vector2()
-	var count = 0
-
-	for boid in boid_group:
-		if boid != self:
-			var diff = position - boid.position
-			steer += diff.normalized() / position.distance_to(boid.position)  # Force inversement proportionnelle à la distance
-			count += 1
-
-	if count > 0:
-		steer /= count
-
-	if steer.length() > 0:
-		steer = steer.normalized() * max_speed - velocity
-		if steer.length() > max_force:
-			steer = steer.normalized() * max_force
-
-	return steer
+	var nearest = global_position
+	var first = true
+	for boid in get_parent().get_children():
+		var distance = global_position.distance_to(boid.global_position)
+		if boid != self and (distance < global_position.distance_to(nearest) or first ) and distance < inner_radius:
+			nearest = boid.global_position
+			first = false
+	
+	return (global_position - nearest).normalized()
 
 # Alignement : direction vers les autres boids proches
-func align() -> Vector2:
-	var steer = Vector2()
+func align() -> float:
+	var steer = velocity
 	var count = 0
 
 	for boid in boid_group:
-		if boid != self:
-			steer += boid.velocity
-			count += 1
+		steer += (boid as Monster).velocity
+		count += 1
 
 	if count > 0:
 		steer /= count
-		steer = steer.normalized() * max_speed
-		steer -= velocity
-		if steer.length() > max_force:
-			steer = steer.normalized() * max_force
 
-	return steer
+	return steer.length()
 
 # Cohésion : se diriger vers la position moyenne des autres boids
 func cohere() -> Vector2:
@@ -133,32 +122,18 @@ func cohere() -> Vector2:
 	var count = 0
 
 	for boid in boid_group:
-		if boid != self:
-			steer += boid.position
-			count += 1
+		steer += (boid as Monster).velocity.normalized()
+		count += 1
 
 	if count > 0:
 		steer /= count
-		steer -= position
-		steer = steer.normalized() * max_speed
-		steer -= velocity
-		if steer.length() > max_force:
-			steer = steer.normalized() * max_force
 
 	return steer
 
 # Suivi de la cible : se diriger vers un point spécifique
 func follow() -> Vector2:
-	var pos = target.position;
-	
-	var v = Vector2(randi_range(200, 800), randi_range(200, 600))
-	
-	if randi() % 2 == 0:
-		pos += v
-	else:
-		pos -= v
-		
-	var target_direction = pos - position
+	var target_direction = target.global_position - global_position
+
 	target_direction = target_direction.normalized() * max_speed
 	var steer_towards_target = target_direction - velocity
 	if steer_towards_target.length() > max_force:
@@ -171,7 +146,7 @@ func get_nearby_boids():
 	boid_group.clear()
 	for boid in get_parent().get_children():
 		if boid is Monster and boid != self:
-			if position.distance_to(boid.position) < radius:
+			if global_position.distance_to(boid.global_position) < radius:
 				boid_group.append(boid)
 
 # Ajouter une cible dynamique (par exemple, un joueur ou un objectif)
