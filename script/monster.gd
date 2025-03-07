@@ -6,14 +6,14 @@ class_name Monster
 var velocity = Vector2()
 var acceleration = Vector2()
 var max_speed = 150.0
-var max_force = 5.0
+var max_force = 25
 var radius = 100.0  # Rayon d'influence pour les comportements de flocking
 
 # Poids pour l'alignement, la cohésion, la séparation et le suivi de la cible
 var alignment_weight = 1
-var cohesion_weight = 1
-var separation_weight = 1
-var follow_weight = 1  # Poids pour le suivi d'une cible (si applicable)
+var cohesion_weight = 2
+var separation_weight = 10.5
+var follow_weight = 1 #Poids pour le suivi d'une cible (si applicable)
 
 var speed = 100.0
 var target : Node2D  # Cible à suivre (si défini)
@@ -54,6 +54,7 @@ func _die():
 	queue_free()
 
 func _process(delta):
+	
 	# Récupérer les voisins proches (pour éviter les boids trop loin)
 	get_nearby_boids()
 
@@ -139,7 +140,9 @@ func cohere() -> Vector2:
 
 # Suivi de la cible : se diriger vers un point spécifique
 func follow() -> Vector2:
-	var target_direction = target.position - position
+	var pos = target.position - Vector2(randi_range(0, 500), randi_range(0, 500))
+	
+	var target_direction = pos - position
 	target_direction = target_direction.normalized() * max_speed
 	var steer_towards_target = target_direction - velocity
 	if steer_towards_target.length() > max_force:
