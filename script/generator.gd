@@ -2,7 +2,7 @@ class_name Generator
 
 extends Node2D
 
-const maxBoidsAlive: int = 50
+const maxBoidsAlive: int = 25
 
 func _ready():
 	for i in range(maxBoidsAlive):

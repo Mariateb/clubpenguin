@@ -2,77 +2,70 @@ extends Node2D
 
 class_name Monster
 
-# Boid parameters
+# Paramètres des boids
 var velocity = Vector2()
 var acceleration = Vector2()
-var max_speed = 100
-var max_force = 10.0
-var radius = 300  # The radius within which the boid will check other boids
+var max_speed = 150.0
+var max_force = 5.0
+var radius = 200.0  # Rayon d'influence pour les comportements de flocking
 
-# Other parameters
+# Poids pour l'alignement, la cohésion, la séparation et le suivi de la cible
 var alignment_weight = 1.0
-var cohesion_weight = 3.0
-var separation_weight = 10.5
-var follow_weight = 1.0  # Poids de l'attraction vers la cible
+var cohesion_weight = 1.0
+var separation_weight = 2.0
+var follow_weight = 0.5  # Poids pour le suivi d'une cible (si applicable)
 
-var speed = 100.0  # Speed of the boid
-var target : Node2D  # L'objectif à suivre, un Node2D pour avoir un point dans l'espace
-var old_pos: Vector2 = Vector2.ZERO
+var speed = 100.0
+var target : Vector2 = Vector2()  # Cible à suivre (si défini)
 
-func _init(target: Node2D):
-	self.target = target
+var boid_group : Array = []  # Groupe des boids voisins à traiter
+var sprite : Sprite2D
 
-# Called when the node enters the scene tree for the first time.
+# Initialisation avec une cible
+func _init(target_pos: Vector2 = Vector2()):
+	self.target = target_pos
+
+# Initialisation du boid dans le jeu
 func _ready():
-	self.z_index = 1
-	var sprite2d = Sprite2D.new()
-	sprite2d.texture = load("res://sprites/poignant.png")
-	add_child(sprite2d)
+	sprite = Sprite2D.new()
+	sprite.texture = load("res://sprites/poignant.png")
+	add_child(sprite)
 	
-	# Set the initial velocity to a random direction
 	velocity = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized() * speed
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if target.position == old_pos:
-		return
-	
-	# Apply the flocking behaviors
+	# Récupérer les voisins proches (pour éviter les boids trop loin)
+	get_nearby_boids()
+
+	# Appliquer les comportements
 	var alignment = align()
 	var cohesion = cohere()
 	var separation = separate()
-	var follow_target = follow()  # Ajout de la force qui attire vers la cible
+	var follow_target = follow()  # Attirer vers la cible
 
-	# Accumulate the forces
+	# Appliquer les forces calculées
 	acceleration = alignment * alignment_weight + cohesion * cohesion_weight + separation * separation_weight + follow_target * follow_weight
 
-	# Update velocity with the applied forces
+	# Mettre à jour la vélocité et la limiter à la vitesse maximale
 	velocity += acceleration
+	velocity = velocity.normalized() * min(velocity.length(), max_speed)
 
-	# Clamp velocity to the maximum speed
-	if velocity.length() > max_speed:
-		velocity = velocity.normalized() * max_speed
-
-	# Apply the velocity to move the boid
+	# Déplacer le boid
 	position += velocity * delta
 
-	# Reset acceleration for the next frame
-	acceleration = Vector2()
-
-	# Smooth rotation towards velocity direction
+	# Appliquer une rotation fluide vers la direction du mouvement
 	if velocity.length() > 0:
 		rotation = lerp_angle(rotation, velocity.angle(), 0.1)
 
-# Separation: Avoid crowding nearby boids
-func separate():
+# Séparation : éviter la proximité des autres boids
+func separate() -> Vector2:
 	var steer = Vector2()
 	var count = 0
 
-	# Look for nearby boids within the radius
-	for boid in get_parent().get_children():
-		if boid != self and position.distance_to(boid.position) < radius:
+	for boid in boid_group:
+		if boid != self:
 			var diff = position - boid.position
-			steer += diff.normalized() / position.distance_to(boid.position)  # Inversely proportional to distance
+			steer += diff.normalized() / position.distance_to(boid.position)  # Force inversement proportionnelle à la distance
 			count += 1
 
 	if count > 0:
@@ -85,14 +78,13 @@ func separate():
 
 	return steer
 
-# Alignment: Steer towards the average heading of nearby boids
-func align():
+# Alignement : direction vers les autres boids proches
+func align() -> Vector2:
 	var steer = Vector2()
 	var count = 0
 
-	# Look for nearby boids within the radius
-	for boid in get_parent().get_children():
-		if boid != self and position.distance_to(boid.position) < radius:
+	for boid in boid_group:
+		if boid != self:
 			steer += boid.velocity
 			count += 1
 
@@ -105,14 +97,13 @@ func align():
 
 	return steer
 
-# Cohesion: Steer towards the average position of nearby boids
-func cohere():
+# Cohésion : se diriger vers la position moyenne des autres boids
+func cohere() -> Vector2:
 	var steer = Vector2()
 	var count = 0
 
-	# Look for nearby boids within the radius
-	for boid in get_parent().get_children():
-		if boid != self and position.distance_to(boid.position) < radius:
+	for boid in boid_group:
+		if boid != self:
 			steer += boid.position
 			count += 1
 
@@ -126,19 +117,24 @@ func cohere():
 
 	return steer
 
-# Follow the target: Calculate the force towards the target (optional)
+# Suivi de la cible : se diriger vers un point spécifique
 func follow() -> Vector2:
-	# If there is no target, return an empty force
-	if target == null:
-		return Vector2()
-
-	# Direction towards the target
-	var target_direction = target.position - position
+	var target_direction = target - position
 	target_direction = target_direction.normalized() * max_speed
-	
-	# Force to steer the boid towards the target
 	var steer_towards_target = target_direction - velocity
 	if steer_towards_target.length() > max_force:
 		steer_towards_target = steer_towards_target.normalized() * max_force
 
 	return steer_towards_target
+
+# Récupérer les boids voisins dans un rayon donné
+func get_nearby_boids():
+	boid_group.clear()
+	for boid in get_parent().get_children():
+		if boid is Monster and boid != self:
+			if position.distance_to(boid.position) < radius:
+				boid_group.append(boid)
+
+# Ajouter une cible dynamique (par exemple, un joueur ou un objectif)
+func set_target(new_target: Vector2):
+	target = new_target
