@@ -3,8 +3,8 @@ extends TileMap
 const MAP_SIZE = 512
 const TILE_SIZE = 32
 const TILE_DIRT = 0
-const TILE_WATER = 2
-const TILE_SAND = 1
+const TILE_WATER = 1
+const TILE_SAND = 2
 
 var noise = FastNoiseLite.new()
 
@@ -38,14 +38,20 @@ func generate_map():
 				listSand.append(pos)
 			else:
 				listWater.append(pos)
-	print("Generated Water Tiles:", listWater.size())
-	print("Generated Sand Tiles:", listSand.size())
-	print("Generated Dirt Tiles:", listDirt.size())
-	if listWater.size() > 0:
-		set_cells_terrain_path(0, listWater, 0, TILE_WATER)
-	if listDirt.size() > 0:
-		set_cells_terrain_path(0, listDirt, 0, TILE_DIRT)
-	if listSand.size() > 0:
-		set_cells_terrain_path(0, listSand, 0, TILE_SAND)
+	for value in listDirt:
+		set_cell(0, value, 1, Vector2i(TILE_DIRT, 0))
+	for value in listWater:
+		set_cell(0, value, 1, Vector2i(TILE_WATER, 0))
+	for value in listSand:
+		set_cell(0, value, 1, Vector2i(TILE_SAND, 0))
+	# print("Generated Water Tiles:", listWater.size())
+	# print("Generated Sand Tiles:", listSand.size())
+	# print("Generated Dirt Tiles:", listDirt.size())
+	# if listWater.size() > 0:
+	#	set_cells_terrain_path(0, listWater, 0, TILE_WATER)
+	# if listDirt.size() > 0:
+	# 	set_cells_terrain_path(0, listDirt, 0, TILE_DIRT)
+	# if listSand.size() > 0:
+	# 	set_cells_terrain_path(0, listSand, 0, TILE_SAND)
 
 	notify_runtime_tile_data_update()
