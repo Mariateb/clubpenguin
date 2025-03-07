@@ -69,13 +69,14 @@ func loop() -> void:
 		await get_tree().create_timer(cooldown[level]).timeout
 
 func update_position() -> void:
-	var x = 128
+	var x = 64
+	var y = 80
 	match player.looking_direction:
 		Vector2.UP:
-			self.global_position = player.global_position + Vector2(0, -x)
+			self.global_position = player.global_position + Vector2(0, -y)
 			self.global_rotation_degrees = -90
 		Vector2.DOWN:
-			self.global_position = player.global_position + Vector2(0, x)
+			self.global_position = player.global_position + Vector2(0, y)
 			self.global_rotation_degrees = 90
 		Vector2.LEFT:
 			self.global_position = player.global_position + Vector2(-x, 0)
