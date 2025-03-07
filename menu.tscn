@@ -137,30 +137,30 @@ text = "Quitter
 
 [node name="Poignant" type="Sprite2D" parent="."]
 z_index = -25
-position = Vector2(200, 360)
+position = Vector2(200, 320)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("12_g7jxm")
 script = ExtResource("2_l48gv")
 distance = 10.0
-base_position = Vector2(200, 360)
+base_position = Vector2(200, 320)
 
 [node name="poignant" type="Sprite2D" parent="."]
 z_index = -25
-position = Vector2(200, 360)
+position = Vector2(200, 320)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("13_jspdm")
 script = ExtResource("2_l48gv")
 distance = 9.6
-base_position = Vector2(200, 360)
+base_position = Vector2(200, 320)
 
 [node name="Oeil_poignant" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(169, 302)
+position = Vector2(169, 262)
 texture = ExtResource("14_jspdm")
 script = ExtResource("15_oxnod")
 
 [node name="Oeil_poignant2" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(239, 300)
+position = Vector2(239, 260)
 texture = ExtResource("14_jspdm")
 script = ExtResource("15_oxnod")
