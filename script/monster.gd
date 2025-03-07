@@ -62,28 +62,29 @@ func _ready():
 	player = get_tree().get_root().get_node("Node2D/Jeu/Player")
 
 func _process(delta):
-	# Récupérer les voisins proches (pour éviter les boids trop loin)
-	get_nearby_boids()
+	if Global.paused == false:
+		# Récupérer les voisins proches (pour éviter les boids trop loin)
+		get_nearby_boids()
 
-	# Appliquer les comportements
-	var alignment = align()
-	var cohesion = cohere()
-	var separation = separate()
-	var follow_target = follow()  # Attirer vers la cible
+		# Appliquer les comportements
+		var alignment = align()
+		var cohesion = cohere()
+		var separation = separate()
+		var follow_target = follow()  # Attirer vers la cible
 
-	# Appliquer les forces calculées
-	acceleration = cohesion * cohesion_weight + follow_target * follow_weight + separation * separation_weight
+		# Appliquer les forces calculées
+		acceleration = cohesion * cohesion_weight + follow_target * follow_weight + separation * separation_weight
 
-	# Mettre à jour la vélocité et la limiter à la vitesse maximale
-	var vel = lerp((velocity + acceleration), velocity.normalized() * alignment, alignment_weight) 
-	velocity = vel.normalized() * min(vel.length(), max_speed)
+		# Mettre à jour la vélocité et la limiter à la vitesse maximale
+		var vel = lerp((velocity + acceleration), velocity.normalized() * alignment, alignment_weight) 
+		velocity = vel.normalized() * min(vel.length(), max_speed)
 
-	# Déplacer le boid
-	global_position += velocity * delta
+		# Déplacer le boid
+		global_position += velocity * delta
 
-	# Appliquer une rotation fluide vers la direction du mouvement
-	if velocity.length() > 0:
-		rotation = lerp_angle(rotation, velocity.angle(), 0.1)
+		# Appliquer une rotation fluide vers la direction du mouvement
+		if velocity.length() > 0:
+			rotation = lerp_angle(rotation, velocity.angle(), 0.1)
 
 	for body in area.get_overlapping_areas():
 		if body.get_parent() is Player:

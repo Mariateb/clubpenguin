@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d2j6cdqs6tmm7"]
+[gd_scene load_steps=22 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://bcluvsr8dnlip" path="res://node_2d.gd" id="1_d21ai"]
 [ext_resource type="Script" uid="uid://c0lkhyhui7t0e" path="res://player.gd" id="1_wtcfe"]
@@ -582,6 +582,9 @@ terrain_set_0/terrain_2/name = "Water"
 terrain_set_0/terrain_2/color = Color(0.428862, 0.332149, 1, 1)
 sources/1 = SubResource("TileSetAtlasSource_q6r6c")
 
+[sub_resource type="LabelSettings" id="LabelSettings_fs4d3"]
+font_size = 48
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_d21ai")
 
@@ -712,14 +715,15 @@ offset_right = 110.0
 offset_bottom = 43.0
 script = ExtResource("18_k73cj")
 
-[node name="Panel" type="Control" parent="CanvasLayer"]
-z_index = 1000
+[node name="Death_panel" type="Control" parent="CanvasLayer"]
+z_index = 900
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1153.0
 offset_bottom = 648.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Panel"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Death_panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -727,7 +731,75 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Death_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Death_panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+text = "Tu es mort !"
+label_settings = SubResource("LabelSettings_fs4d3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Death_panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Death_panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Death_panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Score : "
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Death_panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Death_panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Ennemis tués :"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Death_panel/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Death_panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Recommencer"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Death_panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quitter"
+
+[node name="Pause_panel" type="Control" parent="CanvasLayer"]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 648.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Pause_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause_panel"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -742,11 +814,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/Pause_panel/VBoxContainer"]
 layout_mode = 2
 text = "Reprendre"
 
-[node name="Button2" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/Pause_panel/VBoxContainer"]
 layout_mode = 2
 text = "Quitter
 "

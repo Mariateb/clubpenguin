@@ -1,3 +1,4 @@
 extends Node
 
-var kill_count = 0
+static var kill_count = 0
+static var paused = false
