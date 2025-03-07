@@ -163,4 +163,5 @@ func _die():
 	print('Monster dies')
 	queue_free()
 	if player is Player:
+		Global.kill_count += 1
 		player.experience_points += player.experience_gain

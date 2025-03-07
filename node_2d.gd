@@ -14,10 +14,10 @@ func _process(_delta: float):
 		$CanvasLayer/Pause_panel.visible = !$CanvasLayer/Pause_panel.visible
 		Global.paused = $CanvasLayer/Pause_panel.visible or $CanvasLayer/Death_panel.visible
 	if Input.is_action_just_pressed("ui_end"):
-		Global.paused = true
 		ouvre_mort()
 
 func ouvre_mort():
+	Global.paused = true
 	$CanvasLayer/Death_panel/VBoxContainer/HBoxContainer/VBoxContainer/Label.text = "Score : " + str($CanvasLayer/HUD/TimerLabel.elapsed_time)
 	$CanvasLayer/Death_panel/VBoxContainer/HBoxContainer/VBoxContainer2/Label.text = "Ennemis tués : " + str(Global.kill_count)
 	$CanvasLayer/Death_panel.visible = true

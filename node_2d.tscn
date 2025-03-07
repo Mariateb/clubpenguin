@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://bjsmd2uw0vjvx" path="res://hp_bar_texture.gd" id="9_4d7sh"]
 [ext_resource type="Script" uid="uid://460ohg6uyxj8" path="res://timer_label.gd" id="10_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://dj2eakwhgbcqm" path="res://penguinsprites/enemies/tropicalfish/tropfish1.png" id="17_flf07"]
-[ext_resource type="Script" uid="uid://y6bmrhjg0tvh" path="res://death_count_label.gd" id="18_k73cj"]
+[ext_resource type="Script" path="res://death_count_label.gd" id="18_k73cj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
 resource_name = "Test"
