@@ -1,4 +1,4 @@
-extends Node2D
+extends Living
 
 class_name Monster
 
@@ -35,7 +35,6 @@ func _init(target_pos: Node2D):
 	add_child(area)
 	
 	self.target = target_pos
-
 	
 # Initialisation du boid dans le jeu
 func _ready():
@@ -45,6 +44,13 @@ func _ready():
 	add_child(sprite)
 	
 	velocity = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized() * speed
+	max_health_points = 30.0
+	health_points = 30.0
+	dies.connect(_die)
+
+func _die():
+	print('Monster dies')
+	queue_free()
 
 func _process(delta):
 	# Récupérer les voisins proches (pour éviter les boids trop loin)
@@ -151,3 +157,6 @@ func get_nearby_boids():
 # Ajouter une cible dynamique (par exemple, un joueur ou un objectif)
 func set_target(new_target: Node2D):
 	target = new_target
+
+func take_damage(damage):
+	health_points -= damage

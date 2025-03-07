@@ -85,12 +85,11 @@ func update_position() -> void:
 			self.global_rotation_degrees = 0
 
 func attack():
-	await get_tree().process_frame
-	var bodies = area.get_overlapping_bodies()
-	print(bodies)
+	var bodies = area.get_overlapping_areas()
+	var damage = base_damage[level]
 	for body in bodies:
-		print(body)
-		if body is Monster:
-			var damage = base_damage[level]
-			print('Attacking monster:', body, ' with damage:', damage)
-			body.take_damage(damage)
+		if body is Area2D:
+			if body.get_parent() is Monster:
+				var monster = body.get_parent()
+				print('Attacking monster:', monster, ' with damage:', damage)
+				monster.take_damage(damage)
