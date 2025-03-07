@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2j6cdqs6tmm7"]
+
+[ext_resource type="Script" uid="uid://ccl0mrpavwhxh" path="res://script/generator.gd" id="1_7jktm"]
+[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="2_ryrav"]
+[ext_resource type="Texture2D" uid="uid://dyacauc3mkqye" path="res://icon.svg" id="3_7jktm"]
+[ext_resource type="Texture2D" uid="uid://bj3fwc2q75v0a" path="res://sprites/tilesets/testtiles.png" id="4_j5wjh"]
+[ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="5_vef74"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
+resource_name = "Test"
+texture = ExtResource("4_j5wjh")
+texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q6r6c"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_q6r6c")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Generator" type="Node2D" parent="Node"]
+script = ExtResource("1_7jktm")
+metadata/_custom_type_script = "uid://ccl0mrpavwhxh"
+
+[node name="Player" type="Node2D" parent="Node"]
+z_index = 1
+position = Vector2(631, 299)
+script = ExtResource("2_ryrav")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/Player"]
+position = Vector2(0, -1)
+scale = Vector2(0.51, 0.51)
+texture = ExtResource("3_7jktm")
+
+[node name="Camera2D" type="Camera2D" parent="Node/Player/Sprite2D"]
+position = Vector2(0, 1.96075)
+scale = Vector2(1.96078, 1.96078)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_q6r6c")
+format = 2
+script = ExtResource("5_vef74")
+
+[node name="CameraOut" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.1, 0.1)

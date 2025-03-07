@@ -14,12 +14,13 @@ func _init(p: Player, wn) -> void:
 	self.player = p
 	self.weapon_name = wn
 	global_position = p.global_position
-	z_index = 5
+	z_index = 1
 	init_collision()
 	init_animation()
 
 func init_collision():
 	area = Area2D.new()
+	area.collision_mask = 1<<3;
 	add_child(area)
 
 	var shape = RectangleShape2D.new()
@@ -84,9 +85,11 @@ func update_position() -> void:
 			self.global_rotation_degrees = 0
 
 func attack():
-	var bodies = area.get_overlapping_bodies()
+	var bodies = area.get_overlapping_areas()
+	var damage = base_damage[level]
 	for body in bodies:
-		if body is Monster:
-			var damage = base_damage[level]
-			print('Attacking monster:', body, ' with damage:', damage)
-			# body.take_damage(damage)
+		if body is Area2D:
+			if body.get_parent() is Monster:
+				var monster = body.get_parent()
+				print('Attacking monster:', monster, ' with damage:', damage)
+				monster.take_damage(damage)

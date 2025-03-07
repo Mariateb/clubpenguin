@@ -13,8 +13,8 @@ func _init(target: Player):
 
 func _ready() -> void:
 	for i in range(capacityGroup):
-		var monster = Monster.new()
-		monster.set_target(target.position)
+		var monster = Monster.new(target)
+		monster.set_target(target)
 		monster.name = "__monster" + str(i)
 		add_child(monster)
 
