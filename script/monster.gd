@@ -10,8 +10,7 @@ var max_force = 5.0
 var inner_radius = 30.0
 var radius = 50.0  # Rayon d'influence pour les comportements de flocking
 
-
-var weapons: Array = []
+var player: Player
 
 # Poids pour l'alignement, la cohésion, la séparation et le suivi de la cible
 var alignment_weight = 0.3
@@ -26,8 +25,12 @@ var target : Node2D  # Cible à suivre (si défini)
 var boid_group : Array = []  # Groupe des boids voisins à traiter
 var sprite : Sprite2D
 
-var area =Area2D.new()
+var area = Area2D.new()
 
+var damage = 12
+var is_colliding = false
+var damage_cooldown = 0
+var damage_interval = 1.5
 
 # Initialisation avec une cible
 func _init(target_pos: Node2D):
@@ -35,8 +38,8 @@ func _init(target_pos: Node2D):
 	var rect = RectangleShape2D.new()
 	rect.size = Vector2(18, 18)
 	collision.shape = rect
-	area.collision_layer = 1 <<3
-	area.collision_mask = 1 << 2
+	area.collision_layer = 1 << 2
+	area.collision_mask = 1 << 3
 
 	area.z_index=1;
 	area.add_child(collision)
@@ -56,17 +59,9 @@ func _ready():
 	health_points = 30.0
 	dies.connect(_die)
 
-func _die():
-	print('Monster dies')
-	queue_free()
+	player = get_tree().get_root().get_node("Node2D/Jeu/Player")
 
-func _process(delta):	
-	var bodies = area.get_overlapping_areas()
-	for body in bodies:
-		if body is Area2D:
-			if body.get_parent() is Monster:
-				var monster = body.get_parent()
-				print('Attacking human:', monster, ' with damage:', 22)
+func _process(delta):
 	# Récupérer les voisins proches (pour éviter les boids trop loin)
 	get_nearby_boids()
 
@@ -89,6 +84,13 @@ func _process(delta):
 	# Appliquer une rotation fluide vers la direction du mouvement
 	if velocity.length() > 0:
 		rotation = lerp_angle(rotation, velocity.angle(), 0.1)
+
+	for body in area.get_overlapping_areas():
+		if body.get_parent() is Player:
+			damage_cooldown -= delta
+			if damage_cooldown <= 0:
+				damage_cooldown = damage_interval
+				player.take_damage(damage)
 
 # Séparation : éviter la proximité des autres boids
 func separate() -> Vector2:
@@ -156,11 +158,8 @@ func set_target(new_target: Node2D):
 func take_damage(damage):
 	health_points -= damage
 
-
-func equip_weapon(weapon: Weapon):
-	weapons.push_back(weapon)
-	add_child(weapon)
-	
-func attack():
-	pass
-	
+func _die():
+	print('Monster dies')
+	queue_free()
+	if player is Player:
+		player.experience_points += player.experience_gain

@@ -7,7 +7,6 @@ signal show_level_up()
 
 var weapons: Array = []
 
-
 @export var level: int = 1
 @export var required_experience_until_next_level: float = 25.0
 @export var experience_gain: float = 0.5
@@ -28,8 +27,9 @@ func _ready() -> void:
 
 	rect.size = Vector2(18, 18)
 	collision.shape = rect
-	area.collision_layer = 1 << 2
-	area.z_index=1;
+	area.collision_layer = 1 << 3
+	area.collision_mask = 1 << 2
+	area.z_index=1
 	
 	area.add_child(collision)
 	add_child(area)
@@ -71,7 +71,12 @@ func level_up():
 	experience_points = 0
 	level += 1
 	required_experience_until_next_level *= 1.5
+	for weapon in weapons:
+		weapon.level_up()
 
 func equip_weapon(weapon: Weapon):
 	weapons.push_back(weapon)
 	add_child(weapon)
+
+func take_damage(damage):
+	health_points = health_points - damage
