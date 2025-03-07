@@ -55,6 +55,7 @@ func _ready() -> void:
 	loop()
 
 func level_up() -> void:
+	print('Level up')
 	if level + 1 < base_damage.size():
 		level += 1
 
@@ -93,5 +94,5 @@ func attack():
 		if body is Area2D:
 			if body.get_parent() is Monster:
 				var monster = body.get_parent()
-				print('Attacking monster:', monster, ' with damage:', damage)
+				#print('Attacking monster:', monster, ' with damage:', damage)
 				monster.take_damage(damage)
