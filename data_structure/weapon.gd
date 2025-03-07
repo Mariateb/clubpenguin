@@ -70,7 +70,7 @@ func loop() -> void:
 
 func update_position() -> void:
 	var x = 64
-	var y = 80
+	var y = 60
 	match player.looking_direction:
 		Vector2.UP:
 			self.global_position = player.global_position + Vector2(0, -y)
