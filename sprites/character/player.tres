@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://1dnp2p6qoxkk"]
+
+[ext_resource type="Texture2D" uid="uid://unaun5uh72mr" path="res://sprites/character/penguinidle.png" id="1_sjr2f"]
+[ext_resource type="Texture2D" uid="uid://ckbyimygb5474" path="res://sprites/character/penguinwalk1.png" id="2_u8qmb"]
+[ext_resource type="Texture2D" uid="uid://df2i6kbappogq" path="res://sprites/character/penguinwalk2.png" id="3_r1m5a"]
+[ext_resource type="Texture2D" uid="uid://da7l0jqv2appb" path="res://sprites/character/penguinwalk3.png" id="4_pkyx5"]
+[ext_resource type="Texture2D" uid="uid://b36s22qv43mws" path="res://sprites/character/penguinwalk4.png" id="5_ewa1k"]
+[ext_resource type="Texture2D" uid="uid://dgkv0kserybfx" path="res://sprites/character/penguinwalk5.png" id="6_e6t7e"]
+[ext_resource type="Texture2D" uid="uid://0ns6bbbuc33h" path="res://sprites/character/penguinwalk6.png" id="7_y0dhx"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sjr2f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u8qmb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r1m5a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pkyx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ewa1k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e6t7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y0dhx")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

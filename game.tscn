@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://ccl0mrpavwhxh" path="res://script/generator.gd" id="1_7jktm"]
-[ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="2_ryrav"]
-[ext_resource type="Texture2D" uid="uid://dyacauc3mkqye" path="res://icon.svg" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://cap2a6jmljj7o" path="res://player.gd" id="2_ryrav"]
+[ext_resource type="SpriteFrames" uid="uid://1dnp2p6qoxkk" path="res://sprites/character/player.tres" id="3_7jktm"]
 [ext_resource type="Texture2D" uid="uid://bj3fwc2q75v0a" path="res://sprites/tilesets/testtiles.png" id="4_j5wjh"]
 [ext_resource type="Script" uid="uid://dvh2dbns3puqs" path="res://tile_map.gd" id="5_vef74"]
 
@@ -31,10 +31,12 @@ metadata/_custom_type_script = "uid://ccl0mrpavwhxh"
 z_index = 1
 script = ExtResource("2_ryrav")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node/Player"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Node/Player"]
 position = Vector2(0, -1)
-scale = Vector2(0.51, 0.51)
-texture = ExtResource("3_7jktm")
+sprite_frames = ExtResource("3_7jktm")
+animation = &"walk"
+frame = 2
+frame_progress = 0.120683
 
 [node name="Camera2D" type="Camera2D" parent="Node/Player/Sprite2D"]
 position = Vector2(0, 1.96075)

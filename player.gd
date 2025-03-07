@@ -20,27 +20,50 @@ var weapons: Array = []
 			show_level_up.emit()
 			level_up()
 
+var area = Area2D.new()
+
 func _ready() -> void:
+	var collision = CollisionShape2D.new()
+	var rect = RectangleShape2D.new()
+
+	rect.size = Vector2(18, 18)
+	collision.shape = rect
+	area.collision_layer = 1 << 2
+	area.z_index=1;
+	
+	area.add_child(collision)
+	add_child(area)
+	
 	max_health_points = 100.0
 	health_points = 100.0
 	move_speed = 200.0
 	equip_weapon(Slash.new(self))
-
+	$Sprite2D.play("idle")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("move_left"):
-		position = position + (Vector2.LEFT * move_speed * delta)
-		looking_direction = Vector2.LEFT
-	if Input.is_action_pressed("move_right"):
-		position = position + (Vector2.RIGHT * move_speed * delta)
-		looking_direction = Vector2.RIGHT
+
 	if Input.is_action_pressed("move_up"):
 		position = position + (Vector2.UP * move_speed * delta)
 		looking_direction = Vector2.UP
-		experience_points += 1
+		scale.x = -1
+		$Sprite2D.play("walk")
 	if Input.is_action_pressed("move_down"):
 		position = position + (Vector2.DOWN * move_speed * delta)
 		looking_direction = Vector2.DOWN
+		scale.x = 1
+		$Sprite2D.play("walk")
+	if Input.is_action_pressed("move_left"):
+		position = position + (Vector2.LEFT * move_speed * delta)
+		looking_direction = Vector2.LEFT
+		scale.x = -1
+		$Sprite2D.play("walk")
+	if Input.is_action_pressed("move_right"):
+		position = position + (Vector2.RIGHT * move_speed * delta)
+		looking_direction = Vector2.RIGHT
+		scale.x = 1
+		$Sprite2D.play("walk")
+	if(Input.is_anything_pressed()==false):
+		$Sprite2D.play("idle")
 
 func level_up():
 	max_health_points *= 1.05
