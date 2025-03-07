@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2j6cdqs6tmm7"]
+[gd_scene load_steps=21 format=3 uid="uid://d2j6cdqs6tmm7"]
 
 [ext_resource type="Script" uid="uid://cu5tkxmsu4mgp" path="res://node_2d.gd" id="1_d21ai"]
 [ext_resource type="Script" uid="uid://cagjcstohduxg" path="res://player.gd" id="1_wtcfe"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://cteifbawg5evr" path="res://exp_texture.gd" id="8_x0ka3"]
 [ext_resource type="Script" uid="uid://d2w8naaudd5fa" path="res://hp_bar_texture.gd" id="9_4d7sh"]
 [ext_resource type="Script" uid="uid://d3wdrirdrbeqg" path="res://timer_label.gd" id="10_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://dj2eakwhgbcqm" path="res://penguinsprites/enemies/tropicalfish/tropfish1.png" id="17_flf07"]
+[ext_resource type="Script" uid="uid://ba3jacw5sn2s" path="res://death_count_label.gd" id="18_k73cj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6r6c"]
 resource_name = "Test"
@@ -700,6 +702,23 @@ texture_over = ExtResource("7_4d7sh")
 texture_progress = ExtResource("8_4d7sh")
 script = ExtResource("9_4d7sh")
 player = NodePath("../../../../Jeu/Player")
+
+[node name="DeathCountRect" type="TextureRect" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+offset_left = 900.0
+offset_top = 20.0
+offset_right = 964.0
+offset_bottom = 84.0
+texture = ExtResource("17_flf07")
+
+[node name="DeathCountLabel" type="Label" parent="CanvasLayer/HUD/DeathCountRect"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 20.0
+offset_right = 110.0
+offset_bottom = 43.0
+script = ExtResource("18_k73cj")
 
 [node name="Panel" type="Control" parent="CanvasLayer"]
 z_index = 1000

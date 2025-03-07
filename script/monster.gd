@@ -50,6 +50,7 @@ func _ready():
 
 func _die():
 	print('Monster dies')
+	Global.kill_count += 1
 	queue_free()
 
 func _process(delta):
