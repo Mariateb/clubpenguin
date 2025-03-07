@@ -11,7 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://ckmr7gousx5as" path="res://sprites/menu/mer/sprite_3.png" id="9_g7jxm"]
 [ext_resource type="Texture2D" uid="uid://b4w6el1h2y8qa" path="res://sprites/menu/mer/sprite_4.png" id="10_jspdm"]
 [ext_resource type="Script" uid="uid://2emlex6mao8e" path="res://buttons_menu.gd" id="11_h1wq0"]
-[ext_resource type="Texture2D" uid="uid://0q43fq0gb5kl" path="res://sprites/penguant.png" id="12_dwrpx"]
+[ext_resource type="Texture2D" uid="uid://xv7ayymk0l53" path="res://sprites/penguant_sans_yeux.png" id="12_jspdm"]
+[ext_resource type="Texture2D" uid="uid://rrkea75w0cr7" path="res://sprites/penguant_sans_yeux_sans_fond.png" id="13_oxnod"]
+[ext_resource type="Texture2D" uid="uid://d4h8xqgk63iyf" path="res://sprites/oeil_penguant.png" id="14_oxnod"]
+[ext_resource type="Script" path="res://oeil_penguant.gd" id="15_oxnod"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxnod"]
 resource_local_to_scene = true
@@ -54,7 +57,7 @@ distance = 23.0
 [node name="Montagne2" type="Sprite2D" parent="."]
 z_index = -50
 texture_filter = 1
-position = Vector2(154, -135)
+position = Vector2(214, -116)
 scale = Vector2(12, 12)
 texture = ExtResource("2_ytr4m")
 script = ExtResource("2_l48gv")
@@ -63,7 +66,7 @@ distance = 25.0
 [node name="Herbe" type="Sprite2D" parent="."]
 z_index = -30
 texture_filter = 1
-position = Vector2(253, 73)
+position = Vector2(1910, -90)
 scale = Vector2(12, 12)
 texture = ExtResource("3_l48gv")
 script = ExtResource("2_l48gv")
@@ -72,7 +75,7 @@ distance = 15.0
 [node name="Sable" type="Sprite2D" parent="."]
 z_index = -20
 texture_filter = 1
-position = Vector2(128, 206)
+position = Vector2(2062, 399)
 scale = Vector2(12, 12)
 texture = ExtResource("4_ecwwl")
 script = ExtResource("2_l48gv")
@@ -81,7 +84,7 @@ distance = 5.0
 [node name="Mer" type="AnimatedSprite2D" parent="."]
 z_index = -10
 texture_filter = 1
-position = Vector2(180, 402)
+position = Vector2(2223, 323)
 scale = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_oxnod")
 autoplay = "default"
@@ -134,9 +137,30 @@ text = "Quitter
 
 [node name="Poignant" type="Sprite2D" parent="."]
 z_index = -25
-position = Vector2(398, 221)
+position = Vector2(200, 360)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("12_dwrpx")
+texture = ExtResource("12_jspdm")
 script = ExtResource("2_l48gv")
 distance = 10.0
 base_position = Vector2(200, 360)
+
+[node name="poignant" type="Sprite2D" parent="."]
+z_index = -25
+position = Vector2(200, 360)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("13_oxnod")
+script = ExtResource("2_l48gv")
+distance = 9.6
+base_position = Vector2(200, 360)
+
+[node name="Oeil_poignant" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(169, 302)
+texture = ExtResource("14_oxnod")
+script = ExtResource("15_oxnod")
+
+[node name="Oeil_poignant2" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(239, 300)
+texture = ExtResource("14_oxnod")
+script = ExtResource("15_oxnod")
