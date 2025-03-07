@@ -60,35 +60,36 @@ func _die():
 	print('Monster dies')
 	queue_free()
 
-func _process(delta):	
-	var bodies = area.get_overlapping_areas()
-	for body in bodies:
-		if body is Area2D:
-			if body.get_parent() is Monster:
-				var monster = body.get_parent()
-				print('Attacking human:', monster, ' with damage:', 22)
-	# Récupérer les voisins proches (pour éviter les boids trop loin)
-	get_nearby_boids()
+func _process(delta):
+	if Global.paused == false:
+		var bodies = area.get_overlapping_areas()
+		for body in bodies:
+			if body is Area2D:
+				if body.get_parent() is Monster:
+					var monster = body.get_parent()
+					print('Attacking human:', monster, ' with damage:', 22)
+		# Récupérer les voisins proches (pour éviter les boids trop loin)
+		get_nearby_boids()
 
-	# Appliquer les comportements
-	var alignment = align()
-	var cohesion = cohere()
-	var separation = separate()
-	var follow_target = follow()  # Attirer vers la cible
+		# Appliquer les comportements
+		var alignment = align()
+		var cohesion = cohere()
+		var separation = separate()
+		var follow_target = follow()  # Attirer vers la cible
 
-	# Appliquer les forces calculées
-	acceleration = cohesion * cohesion_weight + follow_target * follow_weight + separation * separation_weight
+		# Appliquer les forces calculées
+		acceleration = cohesion * cohesion_weight + follow_target * follow_weight + separation * separation_weight
 
-	# Mettre à jour la vélocité et la limiter à la vitesse maximale
-	var vel = lerp((velocity + acceleration), velocity.normalized() * alignment, alignment_weight) 
-	velocity = vel.normalized() * min(vel.length(), max_speed)
+		# Mettre à jour la vélocité et la limiter à la vitesse maximale
+		var vel = lerp((velocity + acceleration), velocity.normalized() * alignment, alignment_weight) 
+		velocity = vel.normalized() * min(vel.length(), max_speed)
 
-	# Déplacer le boid
-	global_position += velocity * delta
+		# Déplacer le boid
+		global_position += velocity * delta
 
-	# Appliquer une rotation fluide vers la direction du mouvement
-	if velocity.length() > 0:
-		rotation = lerp_angle(rotation, velocity.angle(), 0.1)
+		# Appliquer une rotation fluide vers la direction du mouvement
+		if velocity.length() > 0:
+			rotation = lerp_angle(rotation, velocity.angle(), 0.1)
 
 # Séparation : éviter la proximité des autres boids
 func separate() -> Vector2:

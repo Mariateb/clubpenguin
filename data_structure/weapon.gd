@@ -62,9 +62,10 @@ func loop() -> void:
 	while true:
 		show()
 		update_position()
-		play(ANIMATION)
-		attack()
-		await animation_finished
+		if !Global.paused:
+			play(ANIMATION)
+			attack()
+			await animation_finished
 		hide()
 		await get_tree().create_timer(cooldown[level]).timeout
 
