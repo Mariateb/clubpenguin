@@ -20,7 +20,20 @@ var weapons: Array = []
 			show_level_up.emit()
 			level_up()
 
+var area = Area2D.new()
+
 func _ready() -> void:
+	var collision = CollisionShape2D.new()
+	var rect = RectangleShape2D.new()
+
+	rect.size = Vector2(18, 18)
+	collision.shape = rect
+	area.collision_layer = 1 << 2
+	area.z_index=1;
+	
+	area.add_child(collision)
+	add_child(area)
+	
 	max_health_points = 100.0
 	health_points = 100.0
 	move_speed = 200.0

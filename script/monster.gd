@@ -9,6 +9,8 @@ var max_speed = 150.0
 var max_force = 25
 var radius = 100.0  # Rayon d'influence pour les comportements de flocking
 
+var weapons: Array = []
+
 # Poids pour l'alignement, la cohésion, la séparation et le suivi de la cible
 var alignment_weight = 1
 var cohesion_weight = 2
@@ -21,28 +23,31 @@ var target : Node2D  # Cible à suivre (si défini)
 var boid_group : Array = []  # Groupe des boids voisins à traiter
 var sprite : Sprite2D
 
+var area =Area2D.new()
+
+
 # Initialisation avec une cible
 func _init(target_pos: Node2D):
-	var area =Area2D.new()
 	var collision = CollisionShape2D.new()
 	var rect = RectangleShape2D.new()
 	rect.size = Vector2(18, 18)
 	collision.shape = rect
 	area.collision_layer = 1 <<3
+	area.collision_mask = 1 << 2
 
 	area.z_index=1;
 	area.add_child(collision)
 	add_child(area)
 	
 	self.target = target_pos
-	
+
 # Initialisation du boid dans le jeu
 func _ready():
 	self.z_index = 1
 	sprite = Sprite2D.new()
 	sprite.texture = load("res://penguinsprites/enemies/crab/crab2.png")
 	add_child(sprite)
-	
+
 	velocity = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized() * speed
 	max_health_points = 30.0
 	health_points = 30.0
@@ -50,11 +55,15 @@ func _ready():
 
 func _die():
 	print('Monster dies')
-	Global.kill_count += 1
 	queue_free()
 
-func _process(delta):
-	
+func _process(delta):	
+	var bodies = area.get_overlapping_areas()
+	for body in bodies:
+		if body is Area2D:
+			if body.get_parent() is Monster:
+				var monster = body.get_parent()
+				print('Attacking human:', monster, ' with damage:', 22)
 	# Récupérer les voisins proches (pour éviter les boids trop loin)
 	get_nearby_boids()
 
@@ -140,8 +149,15 @@ func cohere() -> Vector2:
 
 # Suivi de la cible : se diriger vers un point spécifique
 func follow() -> Vector2:
-	var pos = target.position - Vector2(randi_range(0, 500), randi_range(0, 500))
+	var pos = target.position;
 	
+	var v = Vector2(randi_range(200, 800), randi_range(200, 600))
+	
+	if randi() % 2 == 0:
+		pos += v
+	else:
+		pos -= v
+		
 	var target_direction = pos - position
 	target_direction = target_direction.normalized() * max_speed
 	var steer_towards_target = target_direction - velocity
@@ -164,3 +180,12 @@ func set_target(new_target: Node2D):
 
 func take_damage(damage):
 	health_points -= damage
+
+
+func equip_weapon(weapon: Weapon):
+	weapons.push_back(weapon)
+	add_child(weapon)
+	
+func attack():
+	pass
+	
