@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2otmu71sv5dy"]
+[gd_scene load_steps=18 format=3 uid="uid://d2otmu71sv5dy"]
 
 [ext_resource type="Texture2D" uid="uid://dawiugxt8ldre" path="res://sprites/menu/montagne_1.png" id="1_4hy44"]
 [ext_resource type="Script" uid="uid://n0k46b414msd" path="res://map_item.gd" id="2_l48gv"]
@@ -10,11 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://bf0tdwx88hipa" path="res://sprites/menu/mer/sprite_2.png" id="8_dwrpx"]
 [ext_resource type="Texture2D" uid="uid://ckmr7gousx5as" path="res://sprites/menu/mer/sprite_3.png" id="9_g7jxm"]
 [ext_resource type="Texture2D" uid="uid://b4w6el1h2y8qa" path="res://sprites/menu/mer/sprite_4.png" id="10_jspdm"]
-[ext_resource type="Script" uid="uid://2emlex6mao8e" path="res://buttons_menu.gd" id="11_h1wq0"]
+[ext_resource type="Script" uid="uid://ytv606vx1ar6" path="res://buttons_menu.gd" id="11_h1wq0"]
 [ext_resource type="Texture2D" uid="uid://xv7ayymk0l53" path="res://sprites/penguant_sans_yeux.png" id="12_jspdm"]
 [ext_resource type="Texture2D" uid="uid://rrkea75w0cr7" path="res://sprites/penguant_sans_yeux_sans_fond.png" id="13_oxnod"]
 [ext_resource type="Texture2D" uid="uid://d4h8xqgk63iyf" path="res://sprites/oeil_penguant.png" id="14_oxnod"]
-[ext_resource type="Script" path="res://oeil_penguant.gd" id="15_oxnod"]
+[ext_resource type="Script" uid="uid://dh8b3njys8ic5" path="res://oeil_penguant.gd" id="15_oxnod"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxnod"]
 resource_local_to_scene = true
@@ -156,12 +156,11 @@ base_position = Vector2(200, 320)
 [node name="Oeil_poignant" type="Sprite2D" parent="."]
 z_index = 5
 position = Vector2(169, 262)
-texture = ExtResource("14_jspdm")
-
+texture = ExtResource("14_oxnod")
 script = ExtResource("15_oxnod")
 
 [node name="Oeil_poignant2" type="Sprite2D" parent="."]
 z_index = 5
 position = Vector2(239, 260)
-texture = ExtResource("14_jspdm")
+texture = ExtResource("14_oxnod")
 script = ExtResource("15_oxnod")
